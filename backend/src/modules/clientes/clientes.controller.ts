@@ -1,10 +1,18 @@
-import { Controller, Get, Post, Put, Body, Param, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Body,
+  Param,
+  UseGuards,
+} from '@nestjs/common';
 import { ClientesService } from './clientes.service';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { AuthGuard } from '../auth/auth.guard'; 
+import { AuthGuard } from '../auth/auth.guard';
 import { CreateClienteDto } from './create-cliente.dto'; // 👈 Importamos el DTO
 
-@ApiTags('Clientes') 
+@ApiTags('Clientes')
 @ApiBearerAuth()
 @UseGuards(AuthGuard)
 @Controller('clientes')
@@ -19,7 +27,8 @@ export class ClientesController {
 
   @Post()
   @ApiOperation({ summary: 'Crear un nuevo cliente' })
-  async create(@Body() createClienteDto: CreateClienteDto) { // 👈 Usamos el DTO acá
+  async create(@Body() createClienteDto: CreateClienteDto) {
+    // 👈 Usamos el DTO acá
     // Extraemos el nombre del DTO para mandarlo al servicio
     return await this.clientesService.create(createClienteDto.nombre);
   }

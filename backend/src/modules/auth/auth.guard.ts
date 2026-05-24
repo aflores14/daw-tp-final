@@ -1,4 +1,9 @@
-import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  CanActivate,
+  ExecutionContext,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
 
@@ -11,11 +16,11 @@ export class AuthGuard implements CanActivate {
     const request = context.switchToHttp().getRequest();
     // 2. Extraemos el token usando la función de abajo
     const token = this.extractTokenFromHeader(request);
-    
+
     if (!token) {
       throw new UnauthorizedException('No se envió un token de seguridad');
     }
-    
+
     try {
       // 3. Verificamos que el token sea válido y no haya expirado
       const payload = await this.jwtService.verifyAsync(token);

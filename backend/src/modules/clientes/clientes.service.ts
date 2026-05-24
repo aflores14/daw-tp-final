@@ -1,4 +1,8 @@
-import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  BadRequestException,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Cliente, EstadoCliente } from './cliente.entity';
@@ -12,11 +16,16 @@ export class ClientesService {
 
   async findAll(): Promise<Cliente[]> {
     // Corrección: Usamos un objeto { proyectos: true } en lugar del arreglo
-    return await this.clienteRepository.find({ relations: { proyectos: true } });
+    return await this.clienteRepository.find({
+      relations: { proyectos: true },
+    });
   }
 
   async create(nombre: string): Promise<Cliente> {
-    const nuevoCliente = this.clienteRepository.create({ nombre });
+    const nuevoCliente = this.clienteRepository.create({
+      nombre,
+      estado: EstadoCliente.ACTIVO
+    });
     return await this.clienteRepository.save(nuevoCliente);
   }
 
@@ -29,9 +38,12 @@ export class ClientesService {
 
     if (!cliente) throw new NotFoundException(`Cliente no encontrado`);
 
-    const tieneProyectosActivos = cliente.proyectos && cliente.proyectos.some(p => p.estado !== 'BAJA');
+    const tieneProyectosActivos =
+      cliente.proyectos && cliente.proyectos.some((p) => p.estado !== 'BAJA');
     if (tieneProyectosActivos) {
-      throw new BadRequestException('No se puede dar de baja: tiene proyectos asociados.');
+      throw new BadRequestException(
+        'No se puede dar de baja: tiene proyectos asociados.',
+      );
     }
 
     cliente.estado = EstadoCliente.BAJA;

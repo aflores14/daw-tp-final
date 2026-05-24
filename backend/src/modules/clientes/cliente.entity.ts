@@ -1,4 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Proyecto } from '../proyectos/proyecto.entity';
 
 export enum EstadoCliente {
   ACTIVO = 'ACTIVO',
@@ -16,10 +17,9 @@ export class Cliente {
   @Column({
     type: 'enum',
     enum: EstadoCliente,
-    default: EstadoCliente.ACTIVO
   })
   estado: EstadoCliente;
 
-  @OneToMany('Proyecto', 'cliente')
-  proyectos: any[];
+  @OneToMany(() => Proyecto, (proyecto) => proyecto.cliente)
+  proyectos: Proyecto[];
 }

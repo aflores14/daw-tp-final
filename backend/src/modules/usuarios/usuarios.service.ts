@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Usuario } from './usuario.entity';
+import { Usuario, EstadoUsuario } from './usuario.entity'; // Importamos el Enum
 
 @Injectable()
 export class UsuariosService {
@@ -10,8 +10,18 @@ export class UsuariosService {
     private readonly usuarioRepository: Repository<Usuario>,
   ) {}
 
-  // Este método lo va a usar el módulo de Auth para validar el login
+  // Renombramos a "buscarPorNombre" para que Auth no se rompa, y permitimos null
   async buscarPorNombre(nombre: string): Promise<Usuario | null> {
     return await this.usuarioRepository.findOne({ where: { nombre } });
+  }
+
+  async create(nombre: string, clave: string): Promise<Usuario> {
+    const nuevoUsuario = this.usuarioRepository.create({
+      nombre,
+      clave, 
+      estado: EstadoUsuario.ACTIVO // Usamos el Enum exacto en lugar de texto
+    });
+
+    return await this.usuarioRepository.save(nuevoUsuario);
   }
 }

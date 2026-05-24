@@ -25,7 +25,7 @@ export class AuthService {
 
     // 3. Si todo está bien, armamos el Payload (los datos que viajan dentro del token)
     const payload = { sub: usuario.id, nombre: usuario.nombre };
-    
+
     // 4. Retornamos el token firmado
     return {
       access_token: await this.jwtService.signAsync(payload),

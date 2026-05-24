@@ -19,7 +19,7 @@ export class Usuario {
   @Column({
     type: 'enum',
     enum: EstadoUsuario,
-    default: EstadoUsuario.ACTIVO
+    default: EstadoUsuario.ACTIVO,
   })
   estado: EstadoUsuario;
 }

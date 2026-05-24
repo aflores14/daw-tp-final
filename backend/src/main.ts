@@ -18,13 +18,15 @@ async function bootstrap() {
     .setVersion('1.0')
     .addBearerAuth() // Activa el candado para enviar el token JWT
     .build();
-    
+
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api/docs', app, document);
 
   // 4. Inicia el servidor usando el puerto del .env o el 3000 por defecto
   const port = process.env.PORT || 3000;
   await app.listen(port);
-  console.log(`🚀 Servidor listo y conectado a la BD en: http://localhost:${port}/api/docs`);
+  console.log(
+    `🚀 Servidor listo y conectado a la BD en: http://localhost:${port}/api/docs`,
+  );
 }
 bootstrap();
