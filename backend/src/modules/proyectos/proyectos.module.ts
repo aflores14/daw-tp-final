@@ -10,6 +10,6 @@ import { AuthModule } from '../auth/auth.module';
   imports: [TypeOrmModule.forFeature([Proyecto, Cliente]), AuthModule],
   providers: [ProyectosService],
   controllers: [ProyectosController],
-  exports: [ProyectosService], // Se exporta para permitir su uso en el módulo de tareas
+  exports: [ProyectosService, TypeOrmModule], // 👈 Esto permite inyectar ProyectoRepository en TareasService
 })
 export class ProyectosModule {}

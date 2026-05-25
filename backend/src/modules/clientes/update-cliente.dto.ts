@@ -1,16 +1,15 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
+import { IsString, IsEnum, IsOptional } from 'class-validator';
 import { EstadoCliente } from './cliente.entity';
 
 export class UpdateClienteDto {
-  @ApiPropertyOptional({
-    example: 'Nuevo Nombre',
-    description: 'Nombre del cliente',
-  })
+  @ApiPropertyOptional({ example: 'Nombre Modificado' })
+  @IsOptional()
+  @IsString()
   nombre?: string;
 
-  @ApiPropertyOptional({
-    enum: EstadoCliente,
-    description: 'Estado del cliente',
-  })
+  @ApiPropertyOptional({ enum: EstadoCliente })
+  @IsOptional()
+  @IsEnum(EstadoCliente)
   estado?: EstadoCliente;
 }
