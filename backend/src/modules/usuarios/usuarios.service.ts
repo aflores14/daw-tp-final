@@ -18,8 +18,8 @@ export class UsuariosService {
   async create(nombre: string, clave: string): Promise<Usuario> {
     const nuevoUsuario = this.usuarioRepository.create({
       nombre,
-      clave, 
-      estado: EstadoUsuario.ACTIVO // Usamos el Enum exacto en lugar de texto
+      clave,
+      estado: EstadoUsuario.ACTIVO, // Usamos el Enum exacto en lugar de texto
     });
 
     return await this.usuarioRepository.save(nuevoUsuario);

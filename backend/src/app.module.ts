@@ -11,7 +11,7 @@ import { ProyectosModule } from './modules/proyectos/proyectos.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      isGlobal: true, 
+      isGlobal: true,
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
@@ -23,16 +23,16 @@ import { ProyectosModule } from './modules/proyectos/proyectos.module';
         username: configService.get<string>('DB_USERNAME'),
         password: configService.get<string>('DB_PASSWORD'),
         database: configService.get<string>('DB_NAME'),
-        autoLoadEntities: true, 
-        synchronize: false,     
+        autoLoadEntities: true,
+        synchronize: false,
         logging: configService.get<string>('DB_LOGGING') === 'true',
       }),
     }),
     // Registro de todos los módulos
     UsuariosModule,
     AuthModule,
-    ClientesModule, 
-    ProyectosModule, 
+    ClientesModule,
+    ProyectosModule,
   ],
   controllers: [],
   providers: [],

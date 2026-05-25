@@ -6,11 +6,13 @@ import {
   Body,
   Param,
   UseGuards,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { ClientesService } from './clientes.service';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '../auth/auth.guard';
-import { CreateClienteDto } from './create-cliente.dto'; // 👈 Importamos el DTO
+import { CreateClienteDto } from './create-cliente.dto';
+import { UpdateClienteDto } from './update-cliente.dto';
 
 @ApiTags('Clientes')
 @ApiBearerAuth()
@@ -28,14 +30,21 @@ export class ClientesController {
   @Post()
   @ApiOperation({ summary: 'Crear un nuevo cliente' })
   async create(@Body() createClienteDto: CreateClienteDto) {
-    // 👈 Usamos el DTO acá
-    // Extraemos el nombre del DTO para mandarlo al servicio
     return await this.clientesService.create(createClienteDto.nombre);
+  }
+
+  @Put(':id')
+  @ApiOperation({ summary: 'Modificar nombre y/o estado de un cliente' })
+  async update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateDto: UpdateClienteDto,
+  ) {
+    return await this.clientesService.update(id, updateDto);
   }
 
   @Put(':id/baja')
   @ApiOperation({ summary: 'Dar de baja a un cliente' })
-  async softDelete(@Param('id') id: number) {
+  async softDelete(@Param('id', ParseIntPipe) id: number) {
     return await this.clientesService.softDelete(id);
   }
 }

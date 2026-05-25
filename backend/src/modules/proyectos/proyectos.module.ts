@@ -7,10 +7,7 @@ import { Cliente } from '../clientes/cliente.entity';
 import { AuthModule } from '../auth/auth.module';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([Proyecto, Cliente]),
-    AuthModule,
-  ],
+  imports: [TypeOrmModule.forFeature([Proyecto, Cliente]), AuthModule],
   providers: [ProyectosService],
   controllers: [ProyectosController],
   exports: [ProyectosService], // Se exporta para permitir su uso en el módulo de tareas
