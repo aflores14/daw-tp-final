@@ -8,6 +8,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { ClientesModule } from './modules/clientes/clientes.module';
 import { ProyectosModule } from './modules/proyectos/proyectos.module';
 import { TareasModule } from './modules/tareas/tareas.module';
+import { EstadisticasModule } from './modules/estadisticas/estadisticas.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { TareasModule } from './modules/tareas/tareas.module';
     ClientesModule,
     ProyectosModule,
     TareasModule,
+    EstadisticasModule,
   ],
   controllers: [],
   providers: [],

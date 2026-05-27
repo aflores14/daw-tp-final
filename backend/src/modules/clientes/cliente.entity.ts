@@ -14,10 +14,7 @@ export class Cliente {
   @Column({ type: 'text', unique: true })
   nombre!: string;
 
-  @Column({
-    type: 'enum',
-    enum: EstadoCliente,
-  })
+  @Column({ type: 'enum', enum: EstadoCliente })
   estado!: EstadoCliente;
 
   @OneToMany(() => Proyecto, (proyecto) => proyecto.cliente)
